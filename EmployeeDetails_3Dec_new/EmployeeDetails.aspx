@@ -4,11 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+     <link rel="stylesheet" href="~/Content\bootstrap.css" />
     <%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>--%>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
     <title></title>
+     <style type="text/css">
+         #empNoError {
+             margin-left: 120px;
+         }
+
+     </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -20,19 +27,33 @@
         <p>
             Emp No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="TextBox1" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
+        &nbsp;&nbsp;&nbsp;
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox1"
+    ErrorMessage="This field should contain numbers only" class="text-danger" ValidationExpression="^\d+$"></asp:RegularExpressionValidator>
         </p>
         <p>
-            <asp:Label ID="Label1" runat="server" class="text-primary" CssClass="text-primary" Text="Name"></asp:Label>
-            :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Label ID="Label1" runat="server" class="" CssClass="" Text="Name"></asp:Label>
+            :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="TextBox2" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
+        &nbsp;&nbsp;&nbsp;
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBox2"
+    ErrorMessage="This field should contain letters only" ValidationExpression="^[A-Za-z]+$" class="text-danger"></asp:RegularExpressionValidator>
         </p>
+
         <p>
-            E-mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBox3" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
+            E-mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBox3" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
+        &nbsp;&nbsp;&nbsp;
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="TextBox3"
+    ErrorMessage="Invalid email format" ValidationExpression="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" class="text-danger"></asp:RegularExpressionValidator>
+
         </p>
-        <p>
-            Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox ID="TextBox4" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
-        </p>
+<p>
+    Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:TextBox ID="TextBox4" runat="server" AutoCompleteType="Disabled" ToolTip="Enter Your Address"></asp:TextBox>
+    &nbsp;&nbsp;&nbsp;
+    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" class="text-danger" ControlToValidate="TextBox4" ErrorMessage="This field should not be empty" ValidationExpression="^\S+$"></asp:RegularExpressionValidator>
+</p>
+
         <p style="margin-left: 120px">
 &nbsp;
             <asp:Button ID="saveButton" runat="server" BackColor="Green" ForeColor="White" Height="48px" Text="Save" Width="91px" OnClick="saveButton_Click" />
@@ -59,13 +80,21 @@
         </asp:GridView>
     </form>
     <%--<script src="Scripts/employee.js"></script>--%>
+    <script src="Scripts/bootstrapbundle.js"></script>
     <script>
 
+        let empNo = document.getElementById("TextBox1").value;
+        let name = document.getElementById("TextBox2").value;
+        let email = document.getElementById("TextBox3").value;
+        let address = document.getElementById("TextBox4").value;
+
+        
+        if (empNo && name && email && address) {
+
+        }
+
         function Add() {
-            var empNo = document.getElementById("TextBox1").value;
-            var name = document.getElementById("TextBox2").value;
-            var email = document.getElementById("TextBox3").value;
-            var address = document.getElementById("TextBox4").value;
+
 
             if (empNo && name && email && address) {
                 debugger

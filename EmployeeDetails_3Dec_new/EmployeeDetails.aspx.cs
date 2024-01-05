@@ -40,11 +40,11 @@ namespace EmployeeDetails_3Dec_new
                 SqlCommand cmd = new SqlCommand();
 
                 //Display Data using using inline query:
-                cmd.CommandText = "SELECT * FROM empDetails";
+                //cmd.CommandText = "SELECT * FROM empDetails";
 
                 //Display Data using Stored procedure:
-                //cmd.CommandText = "dispEmp";
-                //cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "dispEmp";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
@@ -64,6 +64,12 @@ namespace EmployeeDetails_3Dec_new
             try
             {
                 SqlCommand cmd = new SqlCommand();
+
+                //document.querySelector("#empNoError").innerHTML = "Please fill Employee Number";
+                //document.querySelector("#nameError").innerHTML = "Please fill Employee Name";
+                //document.querySelector("#emailError").innerHTML = "Please fill Employee Email";
+                //document.querySelector("#addressError").innerHTML = "Please fill Employee Address";
+
                 //Create Operation using inline query:
                 cmd.CommandText = "INSERT INTO empDetails VALUES(@eNo, @empName, @empEmail, @empAdd)";
 
@@ -113,7 +119,11 @@ namespace EmployeeDetails_3Dec_new
                 SqlCommand cmd = new SqlCommand();
 
                 //Update employee details using inline query
-                cmd.CommandText = "UPDATE empDetails SET Name = @empName, Email = @empEmail, Address= @empAdd where empNo=@eNo";
+                //cmd.CommandText = "UPDATE empDetails SET Name = @empName, Email = @empEmail, Address= @empAdd where empNo=@eNo";
+
+                //Update Employee using Stored procedure:
+                cmd.CommandText = "updEmp";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@eNo", TextBox1.Text);
                 cmd.Parameters.AddWithValue("@empName", TextBox2.Text);
@@ -137,7 +147,11 @@ namespace EmployeeDetails_3Dec_new
                 SqlCommand cmd = new SqlCommand();
 
                 //Update employee details using inline query:
-                cmd.CommandText = "DELETE from empDetails where empNo=@eNo";
+                //cmd.CommandText = "DELETE from empDetails where empNo=@eNo";
+
+                //Update Employee using Stored procedure:
+                cmd.CommandText = "delEmp";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@eNo", TextBox1.Text);
                 cmd.ExecuteNonQuery();
