@@ -4,65 +4,64 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-     <link rel="stylesheet" href="~/Content\bootstrap.css" />
-    <%--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>--%>
+    <link rel="stylesheet" href="~/Content\bootstrap.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
     <title></title>
-     <style type="text/css">
-         #empNoError {
-             margin-left: 120px;
-         }
-
-     </style>
+    <style type="text/css">
+        #empNoError {
+            margin-left: 120px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-        </div>
-        <div>
-        </div>
         <h2>Welcome To DITS</h2>
         <p>
             Emp No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="TextBox1" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
-        &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox1"
-    ErrorMessage="This field should contain numbers only" class="text-danger" ValidationExpression="^\d+$"></asp:RegularExpressionValidator>
+                ErrorMessage="This field should contain numbers only" class="text-danger" ValidationExpression="^\d+$"></asp:RegularExpressionValidator>
         </p>
         <p>
             <asp:Label ID="Label1" runat="server" class="" CssClass="" Text="Name"></asp:Label>
             :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="TextBox2" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
-        &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBox2"
-    ErrorMessage="This field should contain letters only" ValidationExpression="^[A-Za-z]+$" class="text-danger"></asp:RegularExpressionValidator>
+                ErrorMessage="This field should contain letters only" ValidationExpression="^[A-Za-z]+$" class="text-danger"></asp:RegularExpressionValidator>
         </p>
 
         <p>
             E-mail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBox3" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
-        &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="TextBox3"
-    ErrorMessage="Invalid email format" ValidationExpression="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" class="text-danger"></asp:RegularExpressionValidator>
+                ErrorMessage="Invalid email format" ValidationExpression="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" class="text-danger"></asp:RegularExpressionValidator>
 
         </p>
-<p>
-    Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p>
+            Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <asp:TextBox ID="TextBox4" runat="server" AutoCompleteType="Disabled" ToolTip="Enter Your Address"></asp:TextBox>
-    &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
     <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" class="text-danger" ControlToValidate="TextBox4" ErrorMessage="This field should not be empty" ValidationExpression="^\S+$"></asp:RegularExpressionValidator>
-</p>
+        </p>
+        <p>
+            Image&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:FileUpload ID="FileUpload1" runat="server" />
+        </p>
 
         <p style="margin-left: 120px">
-&nbsp;
+            &nbsp;
             <asp:Button ID="saveButton" runat="server" BackColor="Green" ForeColor="White" Height="48px" Text="Save" Width="91px" OnClick="saveButton_Click" />
             <%--<button id="saveButton" type="button" class="btn btn-success" onclick="Add()">Save</button>--%>
 &nbsp;&nbsp;&nbsp;
             <asp:Button ID="displayButton" runat="server" BackColor="Yellow" ForeColor="Black" Height="44px" Text="Display" Width="94px" OnClick="displayButton_Click" />
-&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <asp:Button ID="updateButton" runat="server" BackColor="Blue" ForeColor="White" Height="44px" Text="Update" Width="90px" OnClick="updateButton_Click" />
-&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;
             <asp:Button ID="deleteButton" runat="server" BackColor="Red" BorderColor="White" Font-Bold="False" ForeColor="White" Height="43px" Text="Delete" Width="89px" OnClick="deleteButton_Click" />
         </p>
         <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Height="238px" Width="1030px">
@@ -88,7 +87,7 @@
         let email = document.getElementById("TextBox3").value;
         let address = document.getElementById("TextBox4").value;
 
-        
+
         if (empNo && name && email && address) {
 
         }
@@ -123,6 +122,15 @@
                 return false;
             }
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#saveButton').hover(function () {
+                $(this).css({ "background-color": "pink", "color": "blue", "font-weight": "1000" });
+            }, function () {
+                $(this).css({ "background-color": "green", "color":"white", "font-weight":"1000"});
+            });
+        });
     </script>
 </body>
 </html>

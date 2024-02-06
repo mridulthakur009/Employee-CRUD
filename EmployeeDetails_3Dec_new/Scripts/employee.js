@@ -1,4 +1,13 @@
-﻿//Load Data in Table when documents is ready
+﻿$(document).ready(function () {
+    $("form").find('div'); // find the all div under div.
+
+    $('#remove').click(function () {)
+        $('form').remove('h2');}
+    $('')
+})
+
+
+//Load Data in Table when documents is ready
 //$(document).ready(function () {
 //    Add();
 //}); 

@@ -1,0 +1,1 @@
+ALTER TABLE empDetails ADD Images NVARCHAR(100)

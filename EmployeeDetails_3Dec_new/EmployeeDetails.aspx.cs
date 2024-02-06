@@ -8,12 +8,13 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace EmployeeDetails_3Dec_new
 {
     public partial class EmployeeDetails : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(); //using System.Data.SqlClient;
+         SqlConnection con = new SqlConnection(); //using System.Data.SqlClient;
         protected void Page_Load(object sender, EventArgs e)
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString; //ConfigurationManager -- using System.Configuration;
@@ -55,42 +56,77 @@ namespace EmployeeDetails_3Dec_new
             }
             catch (Exception)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error while data is loading1234567');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error while data is loading');", true);
             }
         }
-
+        //Image Upload Control:
         protected void saveButton_Click(object sender, EventArgs e)
         {
             try
             {
-                SqlCommand cmd = new SqlCommand();
+                string CS = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
 
-                //document.querySelector("#empNoError").innerHTML = "Please fill Employee Number";
-                //document.querySelector("#nameError").innerHTML = "Please fill Employee Name";
-                //document.querySelector("#emailError").innerHTML = "Please fill Employee Email";
-                //document.querySelector("#addressError").innerHTML = "Please fill Employee Address";
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    if(FileUpload1.HasFile)
+                    {
+                        con.Open();
+                        string query = "Insert into empDetails VALUES(@eNo, @empName, @empEmail, @empAdd, @Img)";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        FileUpload1.SaveAs(Server.MapPath("~/Images/") + System.IO.Path.GetFileName(FileUpload1.FileName));
+                        string linkPath = "Images/" + System.IO.Path.GetFileName(FileUpload1.FileName);
 
-                //Create Operation using inline query:
-                cmd.CommandText = "INSERT INTO empDetails VALUES(@eNo, @empName, @empEmail, @empAdd)";
+                        cmd.Parameters.AddWithValue("@eNo", TextBox1.Text);
+                        cmd.Parameters.AddWithValue("@empName", TextBox2.Text);
+                        cmd.Parameters.AddWithValue("@empEmail", TextBox3.Text);
+                        cmd.Parameters.AddWithValue("@empAdd", TextBox4.Text);
+                        cmd.Parameters.AddWithValue("@Img", linkPath);
 
-                //Create Operation using Stored procedure:
-                //cmd.CommandText = "saveEmp";
-                //cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@eNo", TextBox1.Text);
-                cmd.Parameters.AddWithValue("@empName", TextBox2.Text);
-                cmd.Parameters.AddWithValue("@empEmail", TextBox3.Text);
-                cmd.Parameters.AddWithValue("@empAdd", TextBox4.Text);
-                cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Data Saved Successfully');", true); // To show alert.
-                clearRec();
-                dispRec();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }   
+            MessageBox.Show("Employee Added Successfully");
             }
             catch (Exception)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error while saving data');", true);
+                MessageBox.Show("Unable to Save");
             }
+
+
+
+
+            //try
+            //{
+            //    SqlCommand cmd = new SqlCommand();
+
+            //    //document.querySelector("#empNoError").innerHTML = "Please fill Employee Number";
+            //    //document.querySelector("#nameError").innerHTML = "Please fill Employee Name";
+            //    //document.querySelector("#emailError").innerHTML = "Please fill Employee Email";
+            //    //document.querySelector("#addressError").innerHTML = "Please fill Employee Address";
+
+            //    //Create Operation using inline query:
+            //    cmd.CommandText = "INSERT INTO empDetails VALUES(@eNo, @empName, @empEmail, @empAdd)";
+
+            //    //Create Operation using Stored procedure:
+            //    //cmd.CommandText = "saveEmp";
+            //    //cmd.CommandType = CommandType.StoredProcedure;
+
+            //    cmd.Connection = con;
+            //    cmd.Parameters.AddWithValue("@eNo", TextBox1.Text);
+            //    cmd.Parameters.AddWithValue("@empName", TextBox2.Text);
+            //    cmd.Parameters.AddWithValue("@empEmail", TextBox3.Text);
+            //    cmd.Parameters.AddWithValue("@empAdd", TextBox4.Text);
+            //    cmd.ExecuteNonQuery();
+            //    cmd.Dispose();
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Data Saved Successfully');", true); // To show alert.
+            //    clearRec();
+            //    dispRec();
+            //}
+            //catch (Exception)
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error while saving data');", true);
+            //}
         }
         //[WebMethod]
         //public static string addData(string empNo, string name, string email, string address)
